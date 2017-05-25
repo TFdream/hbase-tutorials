@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="context.name" value="hbase-crud-demo" />
+	<property name="LOG_HOME" value="D:/logs" />
+
+	<contextName>${context.name}</contextName>
+
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="appInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/info/hbase-crud-info.log</file>
+		<append>true</append>
+		<charset>UTF-8</charset>
+
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/info/hbase-crud.%d{yyyy-MM-dd-HH}-info.log.gz
+			</fileNamePattern>
+			<!-- 日志文件保留15天 -->
+			<maxHistory>360</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="appInfo" />
+	</root>
+
+</configuration>
